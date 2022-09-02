@@ -1,6 +1,6 @@
 import chai, { expect } from "chai"
 import chaiAsPromised from 'chai-as-promised'
-import { Model, Types } from "mongoose"
+import { Model } from "mongoose"
 import * as sinon from 'sinon'
 import Lens from "../../../models/Lens"
 import * as mock from './mocks'
