@@ -64,7 +64,7 @@ describe('Lens Model', () => {
 
     describe('when an invalid "_id" is provided', () => {
       it('should return an error', () => {
-        return expect(lensModel.readOne('invalid_id'))
+        return expect(lensModel.destroy('invalid_id'))
           .to.be.rejectedWith(Error, 'InvalidMongoId')
       })
     })

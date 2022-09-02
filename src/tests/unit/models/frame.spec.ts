@@ -61,5 +61,12 @@ describe('Lens Model', () => {
         expect(lens).to.be.equal(mock.frameMockWithId)
       })
     })
+
+    describe('when an invalid "_id" is provided', () => {
+      it('should return an error', () => {
+        return expect(frameModel.destroy('invalid_id'))
+          .to.be.rejectedWith(Error, 'InvalidMongoId')
+      })
+    })
   })
 })
