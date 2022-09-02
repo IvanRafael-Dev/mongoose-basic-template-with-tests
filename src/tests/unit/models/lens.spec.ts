@@ -12,6 +12,7 @@ describe('Lens Model', () => {
   beforeEach(() => {
     sinon.stub(Model, 'create').resolves(mock.lensMockWithId)
     sinon.stub(Model, 'findOne').resolves(mock.lensMockWithId)
+    sinon.stub(Model, 'find').resolves(mock.lensMockArrayWithId)
   })
   afterEach(() => {
     sinon.restore()
@@ -38,6 +39,15 @@ describe('Lens Model', () => {
       it('should return an error', () => {
         return expect(lensModel.readOne('invalid_id'))
           .to.be.rejectedWith(Error, 'InvalidMongoId')
+      })
+    })
+  })
+
+  describe('#read', () => {
+    describe('when there are lens on database', () => {
+      it('should return an array with the lens on database', async () => {
+        const lens = await lensModel.read()
+        expect(lens).to.be.equal(mock.lensMockArrayWithId)
       })
     })
   })
