@@ -1,10 +1,3 @@
-# Mongoose basic template example
-
-## Configuration
-
-- npm install mongoose
-- add mongoose connection
-```ts
 import 'dotenv/config';
 import mongoose from 'mongoose';
 
@@ -14,4 +7,3 @@ const connectToDatabase = (
 ) => mongoose.connect(mongoDatabaseURI);
 
 export default connectToDatabase;
-```
