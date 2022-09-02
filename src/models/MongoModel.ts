@@ -20,5 +20,12 @@ export default abstract class MongoModel<T> implements IModel<T> {
       throw new Error('InvalidMongoId');
     }
     return this._model.findOne({ _id });
-  } 
+  }
+
+  async destroy(_id: string): Promise<T | null> {
+    if (!isValidObjectId(_id)) {
+      throw new Error('InvalidMongoId');
+    }
+    return this._model.findByIdAndDelete({ _id });
+  }
 }
