@@ -13,6 +13,7 @@ describe('Lens Model', () => {
     sinon.stub(Model, 'create').resolves(mock.lensMockWithId)
     sinon.stub(Model, 'findOne').resolves(mock.lensMockWithId)
     sinon.stub(Model, 'find').resolves(mock.lensMockArrayWithId)
+    sinon.stub(Model, 'findByIdAndDelete').resolves(mock.lensMockWithId)
   })
   afterEach(() => {
     sinon.restore()
@@ -49,6 +50,15 @@ describe('Lens Model', () => {
         const lens = await lensModel.read()
         expect(lens).to.be.an('array')
         expect(lens).to.be.equal(mock.lensMockArrayWithId)
+      })
+    })
+  })
+
+  describe('#destroy', () => {
+    describe('when the lens is found', () => {
+      it('should return the deleted document', async () => {
+        const lens = await lensModel.destroy(mock._id)
+        expect(lens).to.be.equal(mock.lensMockWithId)
       })
     })
   })
