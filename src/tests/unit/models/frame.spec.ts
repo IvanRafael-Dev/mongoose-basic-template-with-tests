@@ -25,4 +25,13 @@ describe('Lens Model', () => {
       })
     })
   })
+
+  describe('#readOne', () => {
+    describe('when the frame is found', () => {
+      it('should return the found frame with related "_id"', async () => {
+        const frame = await frameModel.readOne(mock._id)
+        expect(frame).to.be.equal(mock.frameMockWithId)
+      })
+    })
+  })
 })
