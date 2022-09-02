@@ -47,6 +47,7 @@ describe('Lens Model', () => {
     describe('when there are lens on database', () => {
       it('should return an array with the lens on database', async () => {
         const lens = await lensModel.read()
+        expect(lens).to.be.an('array')
         expect(lens).to.be.equal(mock.lensMockArrayWithId)
       })
     })

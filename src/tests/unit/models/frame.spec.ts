@@ -12,6 +12,7 @@ describe('Lens Model', () => {
   beforeEach(() => {
     sinon.stub(Model, 'create').resolves(mock.frameMockWithId)
     sinon.stub(Model, 'findOne').resolves(mock.frameMockWithId)
+    sinon.stub(Model, 'find').resolves(mock.frameMockArrayWithId)
   })
   afterEach(() => {
     sinon.restore()
@@ -38,6 +39,16 @@ describe('Lens Model', () => {
       it('should return an error', () => {
         return expect(frameModel.readOne('invalid_id'))
           .to.be.rejectedWith(Error, 'InvalidMongoId')
+      })
+    })
+  })
+
+  describe('#read', () => {
+    describe('when there are frames on database', () => {
+      it('should return an array with frames found', async () => {
+        const frames = await frameModel.read()
+        expect(frames).to.be.an('array')
+        expect(frames).to.be.equal(mock.frameMockArrayWithId)
       })
     })
   })
