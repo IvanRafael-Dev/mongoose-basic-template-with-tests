@@ -2,29 +2,16 @@ import chai, { expect } from "chai"
 import chaiAsPromised from 'chai-as-promised'
 import { Model, Types } from "mongoose"
 import * as sinon from 'sinon'
-import ILens from "../../../models/interfaces/ILens"
 import Lens from "../../../models/Lens"
+import * as mock from './mocks'
 
 chai.use(chaiAsPromised)
-
-const lensRequestMock: ILens = {
-  antiGlare: true,
-  blueLightFilter: true,
-  degree: 0.5
-}
-
-const _id = new Types.ObjectId() as unknown as string
-
-const lensMockWithId: ILens & { _id: string } = {
-  _id,
-  ...lensRequestMock
-}
 
 describe('Lens Model', () => {
   const lensModel = new Lens()
   beforeEach(() => {
-    sinon.stub(Model, 'create').resolves(lensMockWithId)
-    sinon.stub(Model, 'findOne').resolves(lensMockWithId)
+    sinon.stub(Model, 'create').resolves(mock.lensMockWithId)
+    sinon.stub(Model, 'findOne').resolves(mock.lensMockWithId)
   })
   afterEach(() => {
     sinon.restore()
@@ -33,8 +20,8 @@ describe('Lens Model', () => {
   describe('#create', () => {
     describe('when creating a new lens with success', () => {
       it('should return the created lens with related "_id"', async () => {
-        const lens = await lensModel.create(lensRequestMock)
-        expect(lens).to.be.equal(lensMockWithId)
+        const lens = await lensModel.create(mock.lensRequestMock)
+        expect(lens).to.be.equal(mock.lensMockWithId)
       })
     })
   })
@@ -42,8 +29,8 @@ describe('Lens Model', () => {
   describe('#readOne', () => {
     describe('when the lens if found', () => {
       it('should return the found lens with related "_id"', async () => {
-        const lens = await lensModel.readOne(_id)
-        expect(lens).to.be.equal(lensMockWithId)
+        const lens = await lensModel.readOne(mock._id)
+        expect(lens).to.be.equal(mock.lensMockWithId)
       })
     })
 
