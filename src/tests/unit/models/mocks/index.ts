@@ -22,8 +22,7 @@ const frameRequestMock: IFrame = {
 // generate _id
 const _id = new Types.ObjectId() as unknown as string
 
-// model retuns 
-
+// model retuns
 const lensMockWithId: IModelReturns<ILens> = {
   _id,
   ...lensRequestMock
@@ -33,8 +32,6 @@ const frameMockWithId: IModelReturns<IFrame> = {
   _id,
   ...frameRequestMock
 }
-
-
 
 const lensMockArrayWithId: IModelReturnsArray<ILens> = [
   {

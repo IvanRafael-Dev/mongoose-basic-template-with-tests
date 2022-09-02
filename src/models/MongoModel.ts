@@ -11,6 +11,10 @@ export default abstract class MongoModel<T> implements IModel<T> {
     return this._model.create({ ...body });
   }
 
+  async read(): Promise<T[] | null> {
+    return this._model.find();
+  }
+
   async readOne(_id: string): Promise<T | null> {
     if (!isValidObjectId(_id)) {
       throw new Error('InvalidMongoId');
