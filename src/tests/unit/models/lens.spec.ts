@@ -3,7 +3,7 @@ import chaiAsPromised from 'chai-as-promised'
 import { Model } from "mongoose"
 import * as sinon from 'sinon'
 import Lens from "../../../models/Lens"
-import * as mock from './mocks'
+import * as mock from '../mocks'
 
 chai.use(chaiAsPromised)
 

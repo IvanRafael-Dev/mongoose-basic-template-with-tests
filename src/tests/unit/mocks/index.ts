@@ -1,6 +1,6 @@
 import { Types } from "mongoose"
-import IFrame from "../../../../models/interfaces/IFrame"
-import ILens from "../../../../models/interfaces/ILens"
+import IFrame from "../../../models/interfaces/IFrame"
+import ILens from "../../../models/interfaces/ILens"
 
 // types
 type Indexable = { _id: string }
@@ -17,6 +17,16 @@ const lensRequestMock: ILens = {
 const frameRequestMock: IFrame = {
   color: 'red',
   material: 'wood'
+}
+
+
+//request mock with errors
+const frameRequestNoMaterial: Omit<IFrame, 'material'> = {
+  color: 'red',  
+}
+
+const frameRequestNoColor: Omit<IFrame, 'color'> = {
+  material: 'wood',  
 }
 
 // generate _id
@@ -50,6 +60,8 @@ const frameMockArrayWithId: IModelReturnsArray<IFrame> = [
 export {
   lensRequestMock,
   frameRequestMock,
+  frameRequestNoMaterial,
+  frameRequestNoColor,
   _id,
   frameMockWithId,
   lensMockWithId,
