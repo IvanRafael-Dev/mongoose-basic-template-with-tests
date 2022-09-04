@@ -2,7 +2,7 @@ import { ZodSchema } from 'zod';
 import { ErrorTypes } from '../erros/catalog';
 import IModel from '../models/interfaces/IModel';
 
-interface IService<T> {
+export interface IService<T> {
   create(obj:T):Promise<T>,
   readOne(_id:string):Promise<T>,
   // safeParse?(obj: T): SafeParseReturnType<T, T> | undefined
