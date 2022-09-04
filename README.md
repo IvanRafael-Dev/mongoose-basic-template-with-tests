@@ -85,3 +85,71 @@ export default class Lens extends MongoModel<ILens> {
   }
 }
 ```
+
+## Generic Abstract Class Service
+```ts
+import { ZodSchema } from 'zod';
+import { ErrorTypes } from '../erros/catalog';
+import IModel from '../models/interfaces/IModel';
+
+export interface IService<T> {
+  create(obj:T):Promise<T>,
+  readOne(_id:string):Promise<T>,
+  // safeParse?(obj: T): SafeParseReturnType<T, T> | undefined
+}
+
+export default abstract class Service<T> implements IService<T> {
+  protected _repository: IModel<T>;
+  protected _schema: ZodSchema<T>;
+  constructor(_repository: IModel<T>, schema: ZodSchema<T>) {
+    this._repository = _repository;
+    this._schema = schema;
+  }
+
+  async create(obj: T): Promise<T> {
+    const isValid = this._schema.safeParse(obj);
+    if (!isValid.success) {
+      throw isValid.error;
+    }
+    return this._repository.create(obj);
+  }
+
+  async readOne(_id: string): Promise<T> {
+    const result = await this._repository.readOne(_id);
+    if (!result) throw new Error(ErrorTypes.EntityNotFound);
+    return result;
+  }
+}
+```
+
+## Generic Abstract Class Controller
+```ts
+import { Request, Response } from 'express';
+import { IService } from '../services/Service';
+
+export interface GenRequest<T> extends Request {
+  body: T
+}
+
+export interface IController<T> {
+  create (req: GenRequest<T>, res: Response<T>): Promise<Response<T>>
+  readOne (req: Request, res: Response<T>): Promise<Response>
+}
+
+export default abstract class Controller<T> implements IController<T> {
+  protected _service: IService<T>;
+  constructor(service: IService<T>) {
+    this._service = service;
+  }
+
+  async create(req: GenRequest<T>, res: Response<T>): Promise<Response<T>> {
+    const result = await this._service.create(req.body);
+    return res.status(201).json(result);
+  }
+
+  async readOne(req: Request, res: Response<T>): Promise<Response<T>> {
+    const result = await this._service.readOne(req.params.id);
+    return res.status(200).json(result);
+  }
+}
+```
