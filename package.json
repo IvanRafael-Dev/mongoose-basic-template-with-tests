@@ -4,7 +4,7 @@
   "description": "Repositório destinado ao conteúdo e exercícios do Bloco 30: MongoDB com Node.js e POO",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev src/server.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test:dev": "mocha -r ts-node/register src/tests/unit/**/*.{test,spec}.ts --exit -t 60000",
     "test:coverage": "nyc --all npm run test:dev"
