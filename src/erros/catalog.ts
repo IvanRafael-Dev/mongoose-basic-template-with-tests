@@ -22,5 +22,3 @@ export const errorCatalog: ErrorCatalog = {
     statusCode: 400,
   },
 };
-
-export default { teste: 'oi' };
